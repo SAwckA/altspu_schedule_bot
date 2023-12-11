@@ -46,7 +46,6 @@ if __name__ == '__main__':
     application.add_handler(MessageHandler(filters.ALL, handlers.unset_group))
     application.add_handler(CallbackQueryHandler(handlers.offset_schedule))
 
-
     asyncio.run(parser.fetch_groups())
     logging.info('reset event loop')
     asyncio.set_event_loop(asyncio.new_event_loop())

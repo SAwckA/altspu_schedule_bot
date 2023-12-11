@@ -16,7 +16,8 @@ def default_keyboard(group_id):
             (KeyboardButton(f'{group_id}'), KeyboardButton('Сегодня'), KeyboardButton('Завтра')),
             (KeyboardButton('Текущая неделя'), KeyboardButton('Следующая неделя')),
             (KeyboardButton('Конкретная неделя'),)
-        )
+        ),
+        resize_keyboard=True
     )
 
 

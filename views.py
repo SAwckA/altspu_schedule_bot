@@ -48,7 +48,7 @@ def message_schedule_week(schedule: Schedule) -> dict[str, str]:
                 m += f'<b>[{pair.VIDDISC.SHORT}]  </b>'
 
                 if pair.SUBGROUP:
-                    m += f'<b>[{pair.SUBGROUP} пг]</b>  {pair.NAME} '
+                    m += f'<b>[{pair.SUBGROUP} пг]</b> [ауд. <b>{schedule.AUD.get(pair.IDAUD).NAME}</b>] {pair.NAME} '
 
                 m += f'{schedule.TEACHER.get(pair.IDTEACHER).SHORTNAME}'
                 m += '\n'
