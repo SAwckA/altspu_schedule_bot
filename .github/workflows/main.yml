@@ -30,3 +30,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/altspu_schedule_bot:latest
 
+      - name: Publish on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          user: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSHKEY }}
+          port: ${{ secrets.SERVER_PORT }}
+            sudo sh docker_compose_pull.sh

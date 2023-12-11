@@ -14,14 +14,18 @@ from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, Messa
 
 class Settings(BaseSettings):
     token: str
+    REDIS_HOST: str
+    REDIS_PORT: int
 
 
 if __name__ == '__main__':
     logging.getLogger('root').setLevel(logging.INFO)
     logging.getLogger('httpx').setLevel(logging.CRITICAL)
 
-    cache = red.Redis(db=0)
-    state = red.Redis(db=1)
+    cache_pool = red.ConnectionPool(host=Settings().REDIS_HOST, port=Settings().REDIS_PORT, db=0)
+    cache = red.Redis(connection_pool=cache_pool)
+    state_pool = red.ConnectionPool(host=Settings().REDIS_HOST, port=Settings().REDIS_PORT, db=1)
+    state = red.Redis(connection_pool=state_pool)
 
     parser = ScheduleParser(cache)
 

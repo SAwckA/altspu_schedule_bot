@@ -9,4 +9,18 @@ services:
       - REDIS_USER=redi
       - REDIS_PORT=6379
       - REDIS_DATABASES=2
+    volumes:
+      - redis_data:/data
+    restart: always
 
+  bot:
+    image: sawcka/altspu_schedule_bot:latest
+    build: .
+    environment:
+      - token=****************************
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: always
+
+volumes:
+  redis_data:
