@@ -1,7 +1,6 @@
 import logging
 from datetime import datetime, timedelta
 
-
 import redis.asyncio as red
 import telegram.constants
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
@@ -27,9 +26,8 @@ class TelegramHandlers:
         self._parser = parser
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        msg = ""
-        "Привет, Я - бот, который берёт расписание с официального сайта https://www.altspu.ru/schedule/\n"
-        "и отправляет тебе в телеграмм"
+        msg = ("Привет, Я - бот, который берёт расписание с официального сайта https://www.altspu.ru/schedule/\n"
+               "и отправляет тебе в телеграмм")
 
         if await self._state.exists(str(update.effective_chat.id)):
             group = (await self._state.get(str(update.effective_chat.id))).decode()
@@ -57,7 +55,7 @@ class TelegramHandlers:
                                            reply_markup=default_keyboard(update.message.text))
             return
 
-        await context.bot.send_message(chat_id= update.effective_chat.id,
+        await context.bot.send_message(chat_id=update.effective_chat.id,
                                        text="Группа не найдена")
 
     async def week_schedule(self, date, update: Update, context: ContextTypes.DEFAULT_TYPE, day_to_send: str = None):
@@ -119,7 +117,7 @@ class TelegramHandlers:
             [[InlineKeyboardButton(
                 text=f'{(now + timedelta(weeks=x)).strftime("%Y-%m-%d")}',
                 callback_data=x,
-            ),] for x in range(-2, 3)]
+            ), ] for x in range(-2, 3)]
         )
         await context.bot.send_message(chat_id=update.effective_chat.id, text=msg, reply_markup=markup)
 
