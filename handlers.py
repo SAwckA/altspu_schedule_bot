@@ -27,10 +27,10 @@ class TelegramHandlers:
         self._parser = parser
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        msg = """
-        Привет, Я - бот, который берёт расписание с официального сайта https://www.altspu.ru/schedule/
-        и отправляет тебе в телеграмм
-        """
+        msg = ""
+        "Привет, Я - бот, который берёт расписание с официального сайта https://www.altspu.ru/schedule/\n"
+        "и отправляет тебе в телеграмм"
+
         if await self._state.exists(str(update.effective_chat.id)):
             group = (await self._state.get(str(update.effective_chat.id))).decode()
             await context.bot.send_message(chat_id=update.effective_chat.id,
