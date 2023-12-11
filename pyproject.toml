@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "altspu-shedule-bot"
+version = "0.1.0"
+description = ""
+authors = ["SAwckA <saw.cka@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.25.2"
+pydantic = "^2.5.2"
+redis = "^5.0.1"
+python-telegram-bot = "^20.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
