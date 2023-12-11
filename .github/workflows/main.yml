@@ -35,7 +35,5 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           user: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_SSHKEY }}
-          port: ${{ secrets.SERVER_PORT }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: sudo sh docker_compose_pull.sh
