@@ -29,6 +29,9 @@ def get_day_name(date: str) -> str:
 def message_schedule_week(schedule: Schedule) -> dict[str, str]:
 
     days = {}
+    if schedule.TIMETABLE is None:
+        return {'': 'На этой неделе пар нет!'}
+
     for date, day in schedule.TIMETABLE.items():
         m = f'🔴 {date} {get_day_name(date)}\n\n'
 

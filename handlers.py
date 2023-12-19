@@ -30,9 +30,9 @@ class TelegramHandlers:
         msg = ("Привет, Я - бот, который берёт расписание с официального сайта https://www.altspu.ru/schedule/\n"
                "и отправляет тебе в телеграмм")
 
-        if await self._state.exists(str(update.effective_message.from_user.id)):
+        if await self._state.exists(str(update.effective_chat.id)):
             logging.info(f'New user: {update.effective_message.from_user.id}')
-            group = (await self._state.get(str(update.effective_message.from_user.id))).decode()
+            group = (await self._state.get(str(update.effective_chat.id))).decode()
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text=msg,
                                            reply_markup=default_keyboard(group))
@@ -50,7 +50,7 @@ class TelegramHandlers:
     async def set_user_group(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if self._parser.get_groups().get(update.message.text) is not None:
-            await self._state.set(str(update.effective_message.from_user.id), value=update.effective_message.text)
+            await self._state.set(str(update.effective_chat.id), value=update.effective_message.text)
             msg = f"Я буду показывать расписание для группы: {update.message.text}"
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text=msg,
@@ -61,11 +61,11 @@ class TelegramHandlers:
                                        text="Группа не найдена")
 
     async def week_schedule(self, date, update: Update, context: ContextTypes.DEFAULT_TYPE, day_to_send: str = None):
-        if not await self._state.exists(str(update.effective_message.from_user.id)):
+        if not await self._state.exists(str(update.effective_chat.id)):
             await self.unset_group(update, context)
             return
 
-        group = (await self._state.get(str(update.effective_message.from_user.id))).decode()
+        group = (await self._state.get(str(update.effective_chat.id))).decode()
 
         schedule = await self._parser.get_group_schedule(self._parser.get_groups().get(group),
                                                          date.year,
