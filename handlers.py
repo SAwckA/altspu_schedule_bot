@@ -31,7 +31,7 @@ class TelegramHandlers:
                "и отправляет тебе в телеграмм")
 
         if await self._state.exists(str(update.effective_chat.id)):
-            group = (await self._state.get(str(update.effective_chat.id))).decode()
+            group = (await self._state.get(str(update.effective_message.from_user.id))).decode()
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text=msg,
                                            reply_markup=default_keyboard(group))
